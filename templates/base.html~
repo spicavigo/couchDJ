@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %} PostCode [5:3] {% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+  <script type="text/javascript" src="/static/js/jquery.js/"></script>
+  <script type="text/javascript" src="/static/js/jquery.color.js"></script>
+  <script type="text/javascript" src="/static/js/base.js"></script>
+  {% block extra_head %}
+  {% endblock %}
+
+</head>
+
+<body>
+  {% block js_templates %} {% endblock %}
+  <div id="wrapper">
+
+  {% block header %}
+    <div id="header">
+      <div id="pageTitle">
+        PostCode 53
+      </div>
+      <div id="searchBar">
+        <input class="search" id="search" value="Search" />
+      </div>
+      <div id="headerBtns">
+        <div class="headerBtn active">
+          <a href="/">$(this)</a>
+        </div>
+        <div class="headerBtn">
+          <a href="/who/">Who?</a>
+        </div>
+        <div class="headerBtn">
+          <a href="/what/">What?</a>
+        </div>
+      </div>
+    </div>        
+
+  {% endblock %}
+  {% block body %} {% endblock %}
+
+  {% block footer %}
+  <div id="footer">
+    we are not responsible.
+  </div>
+  {% endblock %}
+  </div>
+</body>
+
+</html>

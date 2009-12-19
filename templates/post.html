@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block extra_head %}
+
+{% endblock %}
+
+{% block body %}
+  <div class="center" id="post">
+    <div id="postTitle">
+      {{ title }}
+    </div>
+    <div id="postMeta">
+      by {{ posted_by }} on {{ date }}
+    </div>
+    <div id="postContent">
+      {{ content }}
+    </div>
+    {% if hasPrev %}
+    <div class="prevPost pageNav">
+      <a href="/blog/{{hasPrev}}/">Previous Post</a>
+    </div>
+    {% endif %}
+    {% if hasNext %}
+    <div class="nextPost pageNav">
+      <a href="/blog/{{hasNext}}/">Next Post</a>
+    </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
+

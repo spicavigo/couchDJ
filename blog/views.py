@@ -30,12 +30,14 @@ def add_post(request):
     markdown = request.POST.get('markdown')
     html = request.POST.get('html')
     timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+    summary = markdown[:200]
     id = DB['counter']['value']+1
     DB.delete(DB['counter'])
     DB['counter'] = {'value':id+1}
     slug = '/'+author+'/'+slugify(title)+'/'+str(id)
     DB[str(id)]={'title':title, 'author':author, 'markdown':markdown,
-                 'html':html, 'timestamp':timestamp, 'slug':slug}
+                 'html':html, 'timestamp':timestamp, 'slug':slug,
+                 'summary':summary}
     return HttpResponseRedirect('/post/'+slug)
 
 @login_required
@@ -45,12 +47,13 @@ def edit_post(request):
     markdown = request.POST.get('markdown')
     html = request.POST.get('html')
     timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+    summary = markdown[:200]
     post = DB.view('_design/views/_view/post_by_slug', key=request.path).rows[0].value
     id = post['_id']
     DB.delete(DB[id])
     slug = '/'+author+'/'+slugify(title)+'/'+id
     DB[id]={'title':title, 'author':author, 'markdown':markdown,
-                    'html':html, 'timestamp':timestamp, 'slug':slug}
+            'html':html, 'timestamp':timestamp, 'slug':slug, 'summary':summary}
     return HttpResponse('/post/'+slug)
 
 def add_comment(request):

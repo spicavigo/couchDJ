@@ -1,7 +1,7 @@
 # Django settings for couchDJ project.
 from couchdb import Server
 SERVER = Server('http://127.0.0.1:5984')
-DB = SERVER['a']
+DB = SERVER['blogdb']
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

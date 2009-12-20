@@ -3,6 +3,11 @@ from couchdb import Server
 SERVER = Server('http://127.0.0.1:5984')
 DB = SERVER['blogdb']
 
+import os
+from os.path import join
+PROJECT_PATH = os.path.dirname(__file__)
+LOCAL_DEVELOPMENT = True
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -12,8 +17,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = ''           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'blogs'             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -38,12 +43,12 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = join(PROJECT_PATH, 'static')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/static/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -64,6 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'couchDJ.urls'
@@ -72,6 +78,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    join(PROJECT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -79,5 +86,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.admin',
+    'django_extensions',
+    'debug_toolbar',
     'couchDJ.blog',
 )

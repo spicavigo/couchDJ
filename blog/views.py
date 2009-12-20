@@ -4,21 +4,26 @@ from django.shortcuts import render_to_response
 from couchdb.client import ResourceNotFound
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from django.contrib.auth.decorators import login_required
 
 DB=settings.DB
 
-def home(request, page_no):
+def home(request, pageno=0):
     next=prev=None
-    endkey = DB['counter']-1 - (10*int(pge_no))
+    pageno=int(pageno)
+    endkey = DB['counter']['value']-1 - (10*pageno)
     posts = [e.value for e in DB.view('_design/views/_view/posts',
-                    endkey=endkey, limit=11, descending=True).rows]
+                    startkey=endkey, limit=11, descending=True).rows]
     if len(posts) > 10:
-        next = request.path + '?pageno=%d' % pageno+1
-    if page_no > 0:
-        prev = request.path + '?pageno=%d' % pageno-1
+        prev = u'%d' % (pageno+1,)
+    if pageno > 0:
+        next = u'%d' % (pageno-1,)
 
     posts=posts[:10]
-    return render_to_response('home', {'posts':posts, 'next':next, 'prev'=prev})
+    print 'Endkey=%d' % endkey
+    print posts
+    return render_to_response('postList.html', {'posts':posts, 'hasNext':next,
+                                                'hasPrev':prev})
 
 
 @login_required

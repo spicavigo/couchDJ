@@ -13,14 +13,14 @@
       </div>
       <div class="postMeta">
         <div class="postedBy">
-          by : {{ p.posted_by }}
+          by : {{ p.author }}
         </div>
         <div class="postedDate">
-          on {{ p.posted_date }}
+          on {{ p.timestamp }}
         </div>
       </div>
       <div class="postSummary">
-        {{ p.summary }}
+        {{ p.html }}
       </div>
       <div class="readMore">
         <a href="/blog/{{p.slug}}/">Read More</a>

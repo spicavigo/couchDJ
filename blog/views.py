@@ -20,11 +20,8 @@ def home(request, pageno=0):
         next = u'%d' % (pageno-1,)
 
     posts=posts[:10]
-    print 'Endkey=%d' % endkey
-    print posts
     return render_to_response('postList.html', {'posts':posts, 'hasNext':next,
                                                 'hasPrev':prev})
-
 
 @login_required
 def add_post(request):
@@ -72,7 +69,8 @@ def add_comment(request):
                               'timestamp':timestamp, 'post': post}
     return HttpResponse('ok')
 
-def get_post(request, slug):
+def get_post(request, username, title, id):
+    slug = '/'.join([username, title, id])
     doc = DB.view('_design/views/_view/post_by_slug', key=slug).rows[0].value
     return render_to_response('post.html', doc)
 

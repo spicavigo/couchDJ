@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # (r'^couchDJ/', include('couchDJ.foo.urls')),
     (r'^blog/$', 'blog.views.home'),
     (r'^blog/(\d*)/$', 'blog.views.home'),
+    (r'^blog/([a-z]\w*)/(.+)/(\d+)/$', 'blog.views.get_post'),
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
